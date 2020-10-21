@@ -25,7 +25,7 @@ GUEST_MNT=${GUEST_MNT:-$BWD/mnt}
 DOCKER_RUN_ARGS+=( -v $GUEST_MNT/etc/dkimproxy/dkimproxy_out.conf:/etc/dkimproxy/dkimproxy_out.conf )
 DOCKER_RUN_ARGS+=( -v $GUEST_MNT/etc/dkimproxy/private.key:/etc/dkimproxy/private.key )
 
-docker update --restart=no $NAME
+docker update --restart=no $NAME || true
 docker stop $NAME || true
 docker system prune -f
 docker run -d -it --restart=always "${DOCKER_RUN_ARGS[@]}" --name $NAME $RUN_IMAGE:$VERSION "$@"
